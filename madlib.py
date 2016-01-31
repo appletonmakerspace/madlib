@@ -4,7 +4,9 @@ import tkinter
 
 
 class Madlib:
-
+    '''
+    This class generates the madlib from word lists.
+    '''
     def get_madlib(self):
         madlib = """
         Once there was a {0}. It {1} at the {2}.
