@@ -18,7 +18,7 @@ conn = psycopg2.connect(
 cur = conn.cursor()
 
 # Drop table if it already exists
-cur.execute("DROP TABLE test;")
+cur.execute("DROP TABLE IF EXISTS test;")
 
 # Create a table
 cur.execute("CREATE TABLE test (id serial PRIMARY KEY, num integer, data varchar);")
