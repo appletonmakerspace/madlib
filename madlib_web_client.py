@@ -17,11 +17,14 @@ conn = psycopg2.connect(
 # Open a cursor to perform database operations
 cur = conn.cursor()
 
+# Drop table if it already exists
+cur.execute("DROP TABLE test;")
+
 # Create a table
 cur.execute("CREATE TABLE test (id serial PRIMARY KEY, num integer, data varchar);")
 
 # Insert test data
-cur.execute("INSERT INTO test (num, data) VALUES (%s, %s)",(100, "abc'def"))
+cur.execute("INSERT INTO test (num, data) VALUES (%s, %s)", (100, "abc'def"))
 
 # Query the database and obtain data as Python objects
 cur.execute("SELECT * FROM test;")
@@ -36,6 +39,7 @@ conn.close()
 
 
 app = Flask(__name__)
+
 
 @app.route("/")
 def hello():
