@@ -1,10 +1,25 @@
 import random
 
 
-class Madlib:
+class Madlib(db.Model):
     '''
     This class generates the madlib from word lists.
     '''
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(80))
+    body = db.Column(db.Text)
+    create_date = db.Column(db.DateTime)
+
+    def __init__(self, title, body, create_date=None):
+        self.title = title
+        self.body = body
+        if create_date is None:
+            create_date = datetime.utcnow()
+        self.create_date = create_date
+
+    def __repr__(self):
+        return '<Madlib %r>' % self.title
+
     def get_madlib(self):
         madlib = """
         Once there was a {0}. It {1} at the {2}.

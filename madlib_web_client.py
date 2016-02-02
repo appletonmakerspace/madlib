@@ -1,45 +1,20 @@
 import os
 from flask import Flask
-import psycopg2
-from urllib.parse import urlparse
-
-url = urlparse(os.environ["DATABASE_URL"])
-
-# Connect to a database
-conn = psycopg2.connect(
-    database=url.path[1:],
-    user=url.username,
-    password=url.password,
-    host=url.hostname,
-    port=url.port
-)
-
-# Open a cursor to perform database operations
-cur = conn.cursor()
-
-# Drop table if it already exists
-cur.execute("DROP TABLE IF EXISTS test;")
-
-# Create a table
-cur.execute("CREATE TABLE test (id serial PRIMARY KEY, num integer, data varchar);")
-
-# Insert test data
-cur.execute("INSERT INTO test (num, data) VALUES (%s, %s)", (100, "abc'def"))
-
-# Query the database and obtain data as Python objects
-cur.execute("SELECT * FROM test;")
-print(cur.fetchone())
-
-# Make the changes to the database persistent
-conn.commit()
-
-# Close the cursor and the connection to the database
-cur.close()
-conn.close()
-
+from flask_sqlalchemy import SQLAlchemy
+from models import Madlib
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ["DATABASE_URL"]
+db = SQLAlchemy(app)
 
+db.create_all()
+
+m = Madlib("A cheese madlib", "Here is where the body of this madlib would be if this was a complete example.")
+
+db.session.add(m)
+db.session.commit()
+
+print Madlib.query.all()
 
 @app.route("/")
 def hello():
