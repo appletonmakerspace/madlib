@@ -1,5 +1,5 @@
 import random
-
+import db
 
 class Madlib(db.Model):
     '''

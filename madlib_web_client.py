@@ -14,7 +14,7 @@ m = Madlib("A cheese madlib", "Here is where the body of this madlib would be if
 db.session.add(m)
 db.session.commit()
 
-print Madlib.query.all()
+print(Madlib.query.all())
 
 @app.route("/")
 def hello():
