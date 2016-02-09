@@ -1,1 +1,1 @@
-web: python madlib_web_client.py
+web: python run_web_client.py
