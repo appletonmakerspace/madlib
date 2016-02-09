@@ -1,6 +1,7 @@
 import random
 import db
 
+
 class Madlib(db.Model):
     '''
     This class generates the madlib from word lists.
