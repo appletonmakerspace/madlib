@@ -1,5 +1,6 @@
 import random
-import db
+from app import db
+from datetime import datetime
 
 
 class Madlib(db.Model):
